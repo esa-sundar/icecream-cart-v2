@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app="iceCreamApp">
+<head>
+  <meta charset="UTF-8">
+  <title>Ice Cream Cart</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body ng-controller="MainController">
+  <!-- Home Page -->
+  <div ng-show="currentPage === 'home'">
+    <h1 class="page-title">Welcome to the Ice Cream Shop</h1>
+    <div class="product-container">
+      <div class="product" ng-repeat="product in products" ng-click="viewProduct(product)">
+        <h3>{{ product.name }}</h3>
+        <img ng-src="{{ product.defaultImage }}" alt="{{ product.name }}">
+      </div>
+    </div>
+  </div>
+  <!-- Product Page -->
+  <div ng-show="currentPage === 'product'">
+    <div class="product-page">
+      <button ng-click="otherProduct()">← To select other product</button>
+      <div class="product-detail">
+        <h2>{{ selectedProduct.name }}</h2>
+        <div class="image-box"> <img ng-src="{{ selectedFlavor.image }}"
+     ng-style="{ width: imageSize + 'px' }"
+     class="product-image"> </div>
+     <label>Size: <select ng-model="selectedSize" ng-options="size for size in sizes" ng-change="updateImageSize()"></select>
+        </label>
+       
+        <div class="flavors"> 
+           <label>Flavor:</label>
+          <button
+               ng-repeat="flavor in selectedProduct.flavors"
+               ng-style="{'background-color': flavor.color, 'color': 'white'}"
+                data-flavor="{{flavor.name}}"
+                ng-click="selectFlavor(flavor)">
+                    {{ flavor.name }}
+          </button>
+
+        </div>
+        <div class="cart-controls">
+        <label>Quantity:
+          <input type="number" ng-model="quantity" min="1">
+        </label>
+        <button ng-click="addToCart()">Add to Cart</button>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Popup -->
+  <div class="cart-popup" ng-show="cartVisible">
+      <button class="cart-close" ng-click="cartVisible = false">×</button>
+
+      <h3>Cart Summary</h3>
+    <div ng-repeat="item in cartItems track by $index">
+    <p><strong>{{ item.product.name }}</strong> - {{ item.size }}, {{ item.flavor.name }}</p>
+    <p>Qty: {{ item.quantity }} × ₹{{ item.pricePerItem }} = ₹{{ item.quantity * item.pricePerItem }}</p>
+    <button ng-click="removeFromCart($index)" style="background-color: #f44336; color: white;">
+      Remove
+    </button>
+    <hr>
+  </div>
+  <p><strong>Cart Total: ₹{{ getCartTotal() }}</strong></p>
+<button ng-click="proceedToCheckout()" >  Checkout
+</button></div>
+
+  <!-- Billing Page -->
+  <div ng-show="currentPage === 'billing' && !orderPlaced">
+    <div class="billing-page">
+      <div class="billing-form">
+        <h2>Billing Details</h2>
+        <form name="billingForm" ng-submit="placeOrder(billingForm)" novalidate>
+          <label>Name:</label>
+          <input type="text" ng-model="billing.name" name="name" ng-pattern="/^[a-zA-Z ]+$/" required>
+          <p style="color: red;" ng-show="billingForm.name.$dirty && billingForm.name.$error.pattern">
+                    Name should contain only letters.</p>
+          <label>Phone:</label>
+          <input type="tel" ng-model="billing.phone" name="phone" ng-pattern="/^\d{10}$/" required>
+          <p style="color: red;" ng-show="billingForm.phone.$dirty && billingForm.phone.$error.pattern">
+                Enter a valid 10-digit phone number.</p>
+
+          <p><strong>Total Price:</strong> ₹{{ getCartTotal()}}</p>
+          <button type="submit" ng-disabled="billingForm.$invalid" ng-click="placeOrder()">Place Order</button>
+          <button type="button" ng-click="goBackToCart()">← Back</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Page -->
+  <div ng-show="orderPlaced">
+    <div class="confirmation-page">
+      <div class="confirmation-box">
+        <h2>Order Invoice</h2>
+        
+        <p>👤<strong>Customer Name:</strong> {{ billing.name }}</p>
+        <p>📞{{ billing.phone }}</p>
+        <hr>
+        <div ng-repeat="item in orderSummary track by $index" style="margin-bottom: 12px;">
+        <p>🍦 {{ item.product.name }} - {{ item.size }}, {{ item.flavor.name }}</p>
+        <p>Qty: {{ item.quantity }} × ₹{{ item.pricePerItem }} = ₹{{ item.quantity * item.pricePerItem }}</p>
+         </div><hr>
+        <p><strong>🧾Grand Total:</strong> ₹{{ getCartTotal(orderSummary)||0 }}</p>
+        <hr>
+        <h3>✅Thank you for your order! 🍦</h3>
+        <button ng-click="goHome()">Back to Home</button>
+      </div>
+    </div>
+  </div>
+<script src="app.js"></script>
+</body>
+</html>

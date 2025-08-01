@@ -1,0 +1,216 @@
+html, body {
+      height: 100%;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #fefcea, #f1da36);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    h1.page-title {
+      text-align: center;
+      padding: 20px;
+      color: #4e2c0a;
+      background-color: rgba(255, 255, 255, 0.8);
+      margin: 0;
+      font-size: 36px;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .product-detail {
+
+
+  max-width: 400px;
+      width: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      margin: auto;
+}
+    .image-box {
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fffbe6;
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      width: 100%;
+      
+    }
+    .product, .billing-form, .confirmation-box {
+      max-width: 400px;
+      width: 100%;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      margin: auto;
+      min-height:500px;
+    }
+    .product {
+  flex: 1 1 50%;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* make image & text centered */
+  background-color: #fffbe6; /* light yellow/cream */
+  min-height: 300px; /* fix height */
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+    .product:hover {
+      transform: scale(1.05);
+    }
+    select, input[type='text'], input[type='tel'], input[type='number'] {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .flavors {
+  display: flex;          /* align items horizontally */
+  gap: 10px;              /* space between buttons */
+  justify-content: center; /* center horizontally */
+  flex-wrap: nowrap;      /* prevent wrapping to next line */
+  overflow-x: auto;       /* add horizontal scroll if overflow */
+  padding: 10px 0;
+}
+
+  .flavors button {
+  background-color: #666; /* default fallback */
+  border: none;
+  border-radius: 20px; /* pill shape */
+  padding: 8px 16px;
+  min-width: 70px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flavors button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+
+
+    input.ng-invalid.ng-dirty {
+  border-color: red;
+}
+    button {
+  background-color: #ffd966;
+  color: #4e2c0a;
+  padding: 8px 16px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #f1c232;
+}
+.cart-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cart-controls input[type="number"] {
+  width: 60px;
+  padding: 5px;
+}
+
+.cart-controls button {
+  flex-grow: 1;
+}
+
+
+    .cart-popup {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 300px;
+      background: #fff;
+      border-left: 2px solid #ccc;
+      height: 100%;
+      box-shadow: -4px 0 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      z-index: 1000; 
+      overflow-y: auto;
+    }
+    .cart-popup button:last-of-type {
+      margin-bottom: 20px;
+            }
+  .cart-popup button[ng-click*="removeFromCart"] {
+  background-color: #f44336;
+  color: white;
+  margin-top: 5px;
+}
+.cart-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  color: #444;
+  cursor: pointer;
+  z-index: 1100;
+  transition: color 0.3s ease;
+}
+.cart-close:hover {
+  color: #f44336;
+}
+
+      
+    .confirmation-box {
+      text-align: left;
+      line-height: 1.6;
+    }
+    
+  .product img {
+  width: 180px;          /* Set fixed width */
+  height: 180px;         /* Set fixed height */
+  object-fit: cover;     /* Crops to fit square while preserving content */
+  border-radius: 10px; 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  margin: 0 auto;        /* Center the image */
+  display: block;
+  margin-bottom:10px;
+}
